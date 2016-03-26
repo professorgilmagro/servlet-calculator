@@ -1,0 +1,155 @@
+
+form.calculator {
+    position: relative;
+    display: table;
+    background: #fafafa;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 6px 2px rgba(220, 216, 216, 0.84);
+    -moz-box-shadow: 0px 0px 6px 2px rgba(220, 216, 216, 0.84);
+    -webkit-box-shadow: 0px 0px 6px 2px rgba(220, 216, 216, 0.84);
+    padding: 20px;
+    margin: 40px auto 15px auto;
+    clear: both;
+}
+
+form.calculator input[type=number]{
+    border: none;
+    font-size: 2em;
+    width: 94.5%;
+    background: #fafafa;
+    text-align: center;
+}
+
+form.calculator input[type=number]:focus{
+    text-decoration: none;
+}
+
+form.calculator ul li{
+    width: 50%;
+}
+
+form.calculator ul li.numerador{
+    border-bottom: 2px solid gray
+}
+
+form.calculator ul li.result{
+    margin-top: 10px;
+    vertical-align: middle;
+    font-size: 2em;
+    color: #000;
+}
+
+form.calculator .btn-calculate{
+    height: 120px;
+    width: 120px;
+    text-align: center;
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    -webkit-border-radius: 150px;
+    -moz-border-radius: 150px;
+    border-radius: 150px;
+    background: #333;
+    outline: none;
+}
+
+form.calculator .btn-calculate:hover{
+    background: #3a61af;
+    border: none;
+}
+
+img.icon-calc{
+    width: 25px;
+    position: relative;
+    top: 5px;
+    right: 2px;
+    overflow: hidden;
+}
+
+img.icon-calc{
+    width: 25px;
+    position: relative;
+    top: 5px;
+    right: 2px;
+}
+
+.success{
+    background-color: green !important;
+    color: #FFF;
+}
+
+#calc-reset{
+    cursor: pointer;
+}
+
+section.content{
+    min-height: 600px;
+}
+
+table.teclado td{
+    text-align: center;
+    font-size: 1.25em;
+    vertical-align: middle;
+    padding: 0.75em;
+}
+
+table.teclado td button:disabled{
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+    cursor: not-allowed;
+}
+
+table.teclado td button {
+    cursor: pointer;
+    width: 4em;
+    height: 3em;
+    display: block;
+    outline: none;
+    overflow: hidden;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    color: #000;
+    background: rgb(246,248,249); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(246,248,249,1) 0%, rgba(229,235,238,1) 50%, rgba(215,222,227,1) 51%, rgba(245,247,249,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(246,248,249,1) 0%,rgba(229,235,238,1) 50%,rgba(215,222,227,1) 51%,rgba(245,247,249,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(246,248,249,1) 0%,rgba(229,235,238,1) 50%,rgba(215,222,227,1) 51%,rgba(245,247,249,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8f9', endColorstr='#f5f7f9',GradientType=0 ); /* IE6-9 */
+}
+
+table.teclado td button:hover:not(:disabled) {
+    background: rgb(242,246,248); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(242,246,248,1) 0%, rgba(216,225,231,1) 50%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(242,246,248,1) 0%,rgba(216,225,231,1) 50%,rgba(181,198,208,1) 51%,rgba(224,239,249,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(242,246,248,1) 0%,rgba(216,225,231,1) 50%,rgba(181,198,208,1) 51%,rgba(224,239,249,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#e0eff9',GradientType=0 ); /* IE6-9 */
+}
+
+form.calculator div.visor{
+    display: block;
+    width: 95%;
+    height: 3em;
+    line-height: 3em;
+    color: #FFF;
+    font-size: 2.5em;
+    margin: auto;
+    border-radius: 3px;
+    background: #333;
+    margin-bottom: .5em;
+    vertical-align: middle;
+    padding: 0 .25em;
+    overflow: hidden;
+}
+
+.icon-divide{
+    background: url("../images/divisor-branco.png") no-repeat center;
+    height: 24px;
+    width: 24px;
+    padding: .075em .125em;
+    display: inline-block;
+    padding-bottom: 0.2em;
+}

@@ -1,0 +1,152 @@
+/* importa os estilos para fonte e normalização de tags (reset) */
+@import url("font.css");
+@import url("normalize.css");
+
+body{
+  font-family: 'Open Sans Condensed',Arial,sans-serif;
+  margin: 0;
+  font-size: 1.125em;
+}
+
+input,input::-moz-focus-inner,
+input:-moz-focusring {
+    border: 0;
+    outline: none;
+}
+
+input[type="email"],
+input[type="number"]{
+  border: 1px solid #ddd;
+  padding: 4px 8px;
+  outline: none;
+}
+
+input[type="email"]:focus {
+  border: 1px solid #000;
+}
+
+input[type="submit"] {
+  font-weight: bold;
+  padding: 4px 8px;
+  border:1px solid #000;
+  background: #3b5998;
+  color:#fff;
+}
+
+form {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.p {
+  padding-top: 30px;
+}
+
+ul{list-style: none;}
+aside.last-calculations{
+    float: right;
+    height: 450px;
+}
+.last-calculations li{cursor: pointer;}
+
+nav a{text-decoration: none;}
+
+header.main{
+    background: #fafafa;
+    display: table;
+    width: 100%
+}
+
+header.main h1{
+    background: #333;
+    color: #FFF;
+    margin: 0;
+    padding: 10px;
+    font-size: 1.5em;
+}
+
+header.main nav {
+    transition: background .7s;
+}
+
+header.main li {
+    text-align: center;
+    line-height: 90px;
+    height: 90px;
+    font-size: 1.225rem;
+    float:left;
+    width: 20%;
+}
+
+header.main nav li a {
+    color:#333;
+}
+
+header.main nav li a:hover{
+    font-weight: bold;
+}
+
+@media screen and (min-width: 64em) {
+    header.main li {
+        font-size: 1.5rem
+    }
+}
+
+h2{
+    font-size: 2rem;
+    text-shadow: 3px, 3px, 3px, 3px, rgba(0, 0, 0, 0.8)
+}
+
+img.logo{
+    width: 7.5%;
+}
+
+footer{
+    padding: 10px 0;
+    margin-top: 20px;
+    display: block;
+    clear: both;
+    text-align: center;
+    background: #fafafa;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+section{
+    padding: 10px;
+}
+
+article header p{
+    font-size: 24px;
+}
+
+img.icon-calc{
+    width: 25px;
+    position: relative;
+    top: 5px;
+    right: 2px;
+}
+
+.success{
+    background-color: green !important;
+    color: #FFF;
+}
+
+#calc-reset{
+    cursor: pointer;
+}
+
+section.content{
+    min-height: 600px;
+}
+
+table.teclado td{
+    text-align: center;
+    font-size: 1.25em;
+    vertical-align: middle;
+    padding: 0.5em;
+}
+
+table.teclado td button {
+    padding: 0.5em 1em;
+}

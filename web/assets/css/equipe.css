@@ -1,0 +1,26 @@
+ul.profile li{
+    display: table;
+    width: 100%;
+    margin-top: 15px;
+}
+
+ul.profile li .description{
+    display: table;
+    float: left;
+    margin-left: 15px;
+}
+
+ul.profile li figure{
+    width: 180px;
+    text-align: center;
+    float: left;
+}
+ul.profile li figure img{
+    -webkit-border-radius: 150px;
+    -moz-border-radius: 150px;
+    border-radius: 150px;
+    border: 1px solid gray;
+     box-shadow: 0px 0px 6px 2px rgba(220, 216, 216, 0.84);
+    -moz-box-shadow: 0px 0px 6px 2px rgba(220, 216, 216, 0.84);
+    -webkit-box-shadow: 0px 0px 6px 2px rgba(220, 216, 216, 0.84);
+}

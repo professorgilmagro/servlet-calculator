@@ -1,0 +1,50 @@
+section.content-left{
+    float: left;
+    width: 70%;
+}
+
+section.content-right{
+    float: right;
+    width: 25%;
+    background: #FDFDFD;
+    min-height: 850px;
+}
+
+aside.history {
+
+}
+
+aside.history table {
+    width: 100%;
+}
+
+aside.history table thead{
+    background: #CCC;
+    color: #FFF;
+    font-size: 1em;
+}
+
+aside.history table thead th{
+    font-size: 0.9em;
+    padding: 5px 2px;
+}
+
+aside.history table tbody td{
+    font-weight: normal;
+    font-size: 0.9em;
+    padding: 5px 2px;
+    text-align: center;
+    border-bottom: 1px solid darkgrey;
+}
+
+aside.history table tbody td img{
+    padding: 0 3px;
+}
+
+aside.history table tbody td:first-child{
+    text-align: left;
+}
+
+aside.history table caption{
+    margin-bottom: 10px;
+}
