@@ -131,6 +131,7 @@ $(function(){
                 key_events: function() {
                     var calc = this ;
                     $(document).on("keyup" , function(e){
+                        console.log(e.keyCode)
                         e.preventDefault() ;
                         
                         switch (e.keyCode) {
@@ -149,6 +150,7 @@ $(function(){
                                 break;
                                 
                             case 111:
+                            case 191:
                                 $(calc.settings.buttons.divisor).trigger("click");
                                 break;
                                 
@@ -161,7 +163,7 @@ $(function(){
                         }
                     });
                     
-                    $(document).on( "keypress" , function(e){
+                    $(document).on( "keypress", function(e){
                         e.preventDefault() ;
                         
                         var charCode = String.fromCharCode(e.which);
@@ -169,6 +171,12 @@ $(function(){
                             $(calc.settings.buttons.numbers + ":contains(" + charCode + ")" ).trigger("click");
                         }
                     });
+                    
+                    $(document).on( "keydown", function(e){
+                       if( e.keyCode === 8 ) {
+                           e.preventDefault();
+                       }
+                    } );
                 }
 	};
 

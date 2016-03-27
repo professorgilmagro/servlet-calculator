@@ -112,9 +112,13 @@ table.teclado td button {
     height: 2em;
 }
 
+form.calculator h2{
+    padding-left: 0.5em;
+}
+
 form.calculator div.visor{
     display: block;
-    width: 96%;
+    width: 92%;
     height: 2.5em;
     line-height: 2.5em;
     color: #FFF;
@@ -131,7 +135,8 @@ form.calculator div.visor{
     padding-bottom: 0.125em;
 }
 
-form.calculator{padding: 0.5em;}
+form.calculator{padding: 0.15em;}
+table.teclado td button {height: inherit;}
 
 .dataTables_wrapper .dataTables_filter{display: table; float: right;}
 .dataTables_wrapper .dataTables_length {display: table;}

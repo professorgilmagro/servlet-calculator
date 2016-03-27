@@ -175,24 +175,24 @@ public final class Divisor {
             return "Unitária";
         }
         
-        //Própria: O numerador é menor que o denominador
-        if ( this.getNumerador() < this.getDivisor() ) {
-            return "Própria" ;
-        }
-        
         //Aparente: O numerador é múltiplo ao denominador
         if ( this.getNumerador() % this.getDivisor() == 0 ) {
             return "Aparente" ;
         }
         
-        //Irredutível: o numerador e o denominador são primos entre si, não permitindo simplificação
-        if ( this.isPrimeNumbers() ) {
-            return "Irredutível";
-        }
-        
         //Equivalente: Mantêm a mesma proporção de outra fração
          if ( this.isEquivalentType() ) {
             return "Equivalente";
+        }
+        
+        //Própria: O numerador é menor que o denominador
+        if ( this.getNumerador() < this.getDivisor() ) {
+            return "Própria" ;
+        }
+        
+        //Irredutível: o numerador e o denominador são primos entre si, não permitindo simplificação
+        if ( this.isPrimeNumbers() ) {
+            return "Irredutível";
         }
         
         // Imprópria: O numerador é maior ou igual ao denominador
@@ -206,7 +206,7 @@ public final class Divisor {
      */
     public Boolean isEquivalentType(){
         if(this.getDivisor() % 1 == 0 && this.getDivisor() % 1 == 0){
-            return this.mdc(this.getNumerador().intValue(), this.getDivisor().intValue()) == 1 ;
+            return this.mdc(this.getNumerador().intValue(), this.getDivisor().intValue()) > 1 ;
         }
         
         return false;
