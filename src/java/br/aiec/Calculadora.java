@@ -1,8 +1,10 @@
+package br.aiec;
+
 /*
  * Página de controle da página de Calculadora
  */
-package br.aiec;
 
+import br.aiec.helpers.Divisor;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -35,7 +37,9 @@ public class Calculadora extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         try {
-           request.getRequestDispatcher("calculadora.jsp").include(request, response);
+           request.setAttribute("resultado", "");
+           request.setAttribute("categoria", "");
+           request.getRequestDispatcher("calculadora.jsp").forward(request, response);
         } finally {
             out.close();
         }
@@ -52,5 +56,18 @@ public class Calculadora extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        String numerador = request.getParameter("num1").replace(",", ".");
+        String denominador = request.getParameter("num2").replace(",", ".");
+        
+        Divisor divisor = new Divisor(numerador, denominador);
+        String resultado = divisor.getResult().toString().replace(".", ",");
+        String category = divisor.getCategory();
+        
+        request.setAttribute("categoria", category);
+        request.setAttribute("resultado", resultado);
+        request.setAttribute("avisos", divisor.getWarnings());
+        
+       request.getRequestDispatcher("calculadora.jsp").forward(request, response);
     }
 }

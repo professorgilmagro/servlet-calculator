@@ -35,7 +35,9 @@ public class Home extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         try {
-           request.getRequestDispatcher("index.jsp").include(request, response);
+           request.setAttribute("resultado", "");
+           request.setAttribute("categoria", "");
+           request.getRequestDispatcher("index.jsp").forward(request, response);
         } finally {
             out.close();
         }

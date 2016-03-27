@@ -2,129 +2,175 @@ $(function(){
 
 	var calculator = {
 		defaults : {
-			calc_action : "#calculate" ,
-			numerador : "#num" ,
-			denominator : "#denominator" ,
+			entered1 : "#calc-value1" ,
+			entered2 : "#calc-value2" ,
                         divisor_symbol: ".icon-divide",
-			result : "#fraction_calculator .result" ,
                         buttons: {
                             numbers: ".teclado button" ,
                             backspace: "#btn-backspace" ,
                             divisor: "#btn-divisor" ,
+                            decimal: "#btn-decimal" ,
+                            clean: "#btn-clean" ,
+                            execute: "#btn-calculate"
                         },
-                        screen: "#calc-screen" ,
-			reset_action : "#calc-reset"
+                        screen: "#calc-screen",
+                        warnings: "div.visor ul.warnings",
+                        category_info: "div.visor div.tipo-fracao",
 		} ,
 		init : function( options ) {
-			this.settings = $.extend( {}, this.defaults, options ) ;
-			this.reset();
+                        this._initialize( options ) ;
+			this.clean();
                         this.numbers();
                         this.backspace();
                         this.divisor();
+                        this.key_events();
 		} ,
+                _initialize: function( options ) {
+                    this.settings = $.extend( {}, this.defaults, options ) ;
+                    this.$screen = $(this.settings.screen);
+                    this.$entered1 = $(this.settings.entered1);
+                    this.$entered2 = $(this.settings.entered2);
+                    this.$warnings = $(this.settings.warnings);
+                    this.$category_info = $(this.settings.category_info);
+                } ,
                 numbers: function() {
                     var settings = this.settings ;
-                    var that = this ;
+                    var calc = this ;
                     $(settings.buttons.numbers).click(function(){
-                        var value = $(this).text();
-                        var $screen = $(settings.screen) ;
+                        var typed_value = $(this).text();
                         
-                        that._fillField_value(value, $screen);
-                        if ( $.isNumeric(value) ) {
-                            var numerador = $(settings.numerador).val();
-                            var denominador = $(settings.denominator).val();
-                            
-                            $screen.text(numerador);
-                            if ( $.isNumeric(denominador) ){
-                               $(settings.buttons.divisor).trigger("click");
-                               $screen.append(denominador);
-                               return ;
+                        var compare_value = calc.$entered2.val().length > 0 ? calc.$entered2.val() : calc.$entered1.val();
+                        if ( typed_value === "," ) {
+                            if( compare_value.length === 0 || compare_value.indexOf( "," ) !== -1 ) {
+                                return ;
                             }
+                            
+                            calc.$screen.append(typed_value);
                         }
-                        
-                        var screen_value = $screen.text() ;
-                        if ( value === "," && ! $.isEmptyObject(screen_value) > 0 && screen_value.indexOf( "," ) == -1 ) {
-                            $screen.text($screen.html() + value);
+                                                
+                        calc._fillField_value(typed_value);
+                        if ( $.isNumeric(typed_value) ) {
+                            calc.$screen.text(calc.$entered1.val());
+                            if ( calc.$entered2.val().length > 0 ){
+                               $(settings.buttons.divisor).trigger("click");
+                               calc.$screen.append(calc.$entered2.val());
+                            }
+                            
+                            return ;
                         }
-                        
-                    })
+                    });
                 } ,
-                _fillField_value:function(value, $screen){
-                    var $num = $(this.settings.numerador);
-                    var $denominador = $(this.settings.denominator);
-
-                    if ( $.isNumeric( $denominador.val() ) || $screen.find(this.settings.divisor_symbol).length > 0 ){
-                        $denominador.val($denominador.val() + '' + value);
+                _fillField_value:function(typed_value){
+                    if ( ! $.isNumeric(typed_value) && typed_value !== "," ) {
                         return ;
                     }
                     
-                    $num.val($num.val() + '' + value);
+                    if ( $.isNumeric( this.$entered2.val() ) || this.$screen.find(this.settings.divisor_symbol).length > 0 ){
+                        if ( typed_value === "," && this.$entered2.val().indexOf( "," ) !== -1 ){
+                            typed_value = '';
+                        }
+                        
+                        this.$entered2.val(this.$entered2.val() + '' + typed_value);
+                        return ;
+                    }
+                    
+                    if ( typed_value === "," && this.$entered1.val().indexOf( "," ) !== -1 ){
+                        typed_value = '';
+                    }
+                    
+                    this.$entered1.val(this.$entered1.val() + '' + typed_value);
                 } ,
                 backspace: function() {
                    var settings = this.settings ;
+                   var calc = this ;
+                   
                    $(settings.buttons.backspace).click(function(){
-                       var $screen = $(settings.screen) ;
-                       var original_value = $screen.text();
-                       var new_value = original_value.substr(0,(original_value.length - 1));
-                       $screen.text(new_value);
-                   })
-                } ,
-                divisor: function() {
-                   var settings = this.settings ;
-                   $(settings.buttons.divisor).click(function(){
-                       var $screen = $(settings.screen) ;
-                       if ( $screen.text().length === 0 || $screen.find(settings.divisor_symbol).length > 0 ) {
+                       calc._clean_info();
+                       var has_divisor_symbol = calc.$screen.find(calc.settings.divisor_symbol).length > 0 ;
+                                                                     
+                       if ( has_divisor_symbol && calc.$entered2.val().length === 0 ) {
+                           calc.$screen.find(calc.settings.divisor_symbol).remove();
                            return ;
                        }
                        
-                       $screen.append('<span class="'+settings.divisor_symbol.replace(".","")+'"></span>');
+                       var $entered = calc.$entered2.val().length > 0 ? calc.$entered2 : calc.$entered1; 
+                       var new_entered_value = $entered.val().substr(0,($entered.val().length - 1));
+                       $entered.val(new_entered_value);
+                       
+                       var screen_content = calc.$screen.html(); 
+                       var new_content = screen_content.substr(0,(screen_content.length - 1));
+                       calc.$screen.html(new_content);
+                   });
+                } ,
+                divisor: function() {
+                   var settings = this.settings ;
+                   var calc = this ;
+                   $(settings.buttons.divisor).click(function(){
+                       if ( calc.$screen.text().length === 0 || calc.$screen.find(settings.divisor_symbol).length > 0 ) {
+                           return ;
+                       }
+                       
+                       calc._clean_info();
+                       calc.$screen.append('<span class="'+settings.divisor_symbol.replace(".","")+'"></span>');
                    } ) ;
                 } ,
-		calculate: function() {
-			var that = this ;
-
-			$(that.settings.calc_action).click(function (e) {
-				e.preventDefault() ;
-
-				var $btn = $(this) ;
-				var $numerador = $( that.settings.numerador ) ;
-				var $denominator = $( that.settings.denominator ) ;
-				var $result = $( that.settings.result ) ;
-
-				$btn.removeClass( "success" ).val( "=" ) ;
-				$result.html("&nbsp;") ;
-				if ( $.isEmptyObject( $numerador.val() ) ) {
-					$numerador.focus() ;
-					return ;
-				}
-
-				if ( $.isEmptyObject( $denominator.val() ) ) {
-					$denominator.focus() ;
-					return ;
-				}
-
-				var numerador = parseFloat( $numerador.val() );
-				var denominator = parseFloat( $denominator.val() );
-				var category = that.getCategory( numerador , denominator ) ;
-
-				$result.text( numerador / denominator ) ;
-				$btn.val( category ) ;
-				$btn.addClass( "success" ) ;
-				that.addToHistory( numerador, denominator, category );
-			});
-		} ,
-		reset: function() {
-			var settings = this.settings ;
-			$(settings.reset_action).click(function (e) {
-				e.preventDefault() ;
-				$(settings.screen).html("&nbsp;") ;
-				$( settings.result ).html("&nbsp;");
-				$( settings.calc_action ).removeClass( "success" ).val( "=" ) ;
-                                $(settings.numerador).val("");
-                                $(settings.denominador).val("");
+		clean: function() {
+                        var calc = this ;
+			$(calc.settings.buttons.clean).on( "click" , function (e) {
+                            e.preventDefault() ;
+                            calc.$screen.html("&nbsp;") ;
+                            calc.$entered1.val("");
+                            calc.$entered2.val("");
+                            calc._clean_info();
 			}) ;
-		}
-	}
+		} ,
+                _clean_info: function(){
+                   this.$category_info.text("");
+                   this.$warnings.remove(); 
+                } ,
+                key_events: function() {
+                    var calc = this ;
+                    $(document).on("keyup" , function(e){
+                        e.preventDefault() ;
+                        
+                        switch (e.keyCode) {
+                            case 13:
+                                $(calc.settings.buttons.execute).trigger("click");
+                                break;
+                                
+                            case 8:
+                            case 46:
+                                $(calc.settings.buttons.backspace).trigger("click");
+                                break;
+                                
+                            case 27:
+                            case 67:
+                                $(calc.settings.buttons.clean).trigger("click");
+                                break;
+                                
+                            case 111:
+                                $(calc.settings.buttons.divisor).trigger("click");
+                                break;
+                                
+                            case 110:
+                            case 190:
+                            case 108:
+                            case 188:
+                                $(calc.settings.buttons.decimal).trigger("click");
+                                break;
+                        }
+                    });
+                    
+                    $(document).on( "keypress" , function(e){
+                        e.preventDefault() ;
+                        
+                        var charCode = String.fromCharCode(e.which);
+                        if ( $.isNumeric(charCode) && parseInt(charCode) < 10 ) {
+                            $(calc.settings.buttons.numbers + ":contains(" + charCode + ")" ).trigger("click");
+                        }
+                    });
+                }
+	};
 
 	calculator.init();
-})
+});
