@@ -8,8 +8,8 @@
     <h2><img title="Clique aqui para limpar os dados." src="assets/images/calc.png"> Calculador</h2>
    
     <div  class="visor" >
-        <div class="tipo-fracao"><%= categoria %></div>
-        <div id="calc-screen"><%= result %></div>
+        <div class="tipo-fracao"><%= categoria == null ? "" : categoria %></div>
+        <div id="calc-screen"><%= result == null ? "" : result %></div>
             <ul class="warnings">
             <%
             if( avisos != null ) {
