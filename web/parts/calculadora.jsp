@@ -20,7 +20,7 @@
             %>
             </ul>
     </div>
-        <input name="num1" id="calc-value1" type="hidden" value="<%= result %>">
+        <input name="num1" id="calc-value1" type="hidden" value="<%= result == null ? "" : result %>">
         <input name="num2" id="calc-value2" type="hidden">
         <table class="teclado">
             <tbody>
