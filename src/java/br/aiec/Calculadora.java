@@ -61,11 +61,8 @@ public class Calculadora extends HttpServlet {
         String denominador = request.getParameter("num2").replace(",", ".");
         
         Divisor divisor = new Divisor(numerador, denominador);
-        String resultado = divisor.getResult().toString().replace(".", ",");
-        String category = divisor.getCategory();
-        
-        request.setAttribute("categoria", category);
-        request.setAttribute("resultado", resultado);
+        request.setAttribute("categoria", divisor.getCategory());
+        request.setAttribute("resultado", divisor.getFormatResult());
         request.setAttribute("avisos", divisor.getWarnings());
         
        request.getRequestDispatcher("calculadora.jsp").forward(request, response);

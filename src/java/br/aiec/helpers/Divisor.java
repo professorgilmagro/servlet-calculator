@@ -241,4 +241,13 @@ public final class Divisor {
         else
             return mdc(b, a % b);
     }
+    
+    public String getFormatResult(){
+         // Verifica se os números é inteiro
+        if(this.getResult() % 1 == 0 ){
+            return String.format("%d", this.getResult().intValue());
+        }
+        
+        return this.getResult().toString().replace(".", ",");
+    }
 }
